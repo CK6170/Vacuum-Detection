@@ -131,6 +131,9 @@ dmypy.json
 # VS Code
 .vscode/
 
+# IDE files
+.idea/
+
 # Output files and temporary data
 *.png
 *.jpg
