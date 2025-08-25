@@ -5,7 +5,7 @@ import random
 import time
 from detect_sinusoidal_noise_weights import detect_sinusoidal_noise_weights
 
-folder = r'D:\Coolers\Phyton\excel_files'
+folder = r'D:\Coolers\Data\Test'
 win_size_sec = 0.5
 power_ratio_thresh = 0.5
 co_detection_window_sec = 0.15
@@ -30,12 +30,19 @@ for file_index, file in enumerate(files, 1):
             file, win_size_sec, power_ratio_thresh, co_detection_window_sec
         )
         
+        # Show detection results summary
+        print(f"  📊 Detections: {len(vacuum_times)} vacuum events, {sum(len(st) if st else 0 for st in sinusoid_times) if sinusoid_times else 0} total sinusoidal detections")
+        
         # Store results
         file_result = {
             'filename': os.path.basename(file),
             'filepath': file,
             'vacuum_times': vacuum_times,
             'num_vacuum_events': len(vacuum_times),
+            'sinusoid_times': sinusoid_times,
+            'sinusoid_indices': sinusoid_indices,
+            'dom_freqs': dom_freqs,
+            'dom_phases': dom_phases,
             'status': 'success'
         }
         all_results.append(file_result)
@@ -63,6 +70,10 @@ for file_index, file in enumerate(files, 1):
             'filepath': file,
             'vacuum_times': [],
             'num_vacuum_events': 0,
+            'sinusoid_times': [],
+            'sinusoid_indices': [],
+            'dom_freqs': [],
+            'dom_phases': [],
             'status': 'failed',
             'error': str(e)
         }
@@ -72,11 +83,17 @@ print("\n" + "="*60)
 print("SUMMARY OF VACUUM EFFECT DETECTION")
 print("="*60)
 
-print(f"\nFiles WITH vacuum effects: {len(files_with_vacuum)}")
-print(f"Files WITHOUT vacuum effects: {len(files_without_vacuum)}")
-print(f"Total files processed: {len(files)}")
-print(f"Files with vacuum effects: {len(files_with_vacuum)} ({len(files_with_vacuum)/len(files)*100:.1f}%)")
-print(f"Files without vacuum effects: {len(files_without_vacuum)} ({len(files_without_vacuum)/len(files)*100:.1f}%)")
+print(f"\n📊 DETECTION PARAMETERS:")
+print(f"  • Window size: {win_size_sec} seconds")
+print(f"  • Power ratio threshold: {power_ratio_thresh}")
+print(f"  • Co-detection window: {co_detection_window_sec} seconds")
+
+print(f"\n📁 FILES PROCESSED:")
+print(f"  • Files WITH vacuum effects: {len(files_with_vacuum)}")
+print(f"  • Files WITHOUT vacuum effects: {len(files_without_vacuum)}")
+print(f"  • Total files processed: {len(files)}")
+print(f"  • Files with vacuum effects: {len(files_with_vacuum)} ({len(files_with_vacuum)/len(files)*100:.1f}%)")
+print(f"  • Files without vacuum effects: {len(files_without_vacuum)} ({len(files_without_vacuum)/len(files)*100:.1f}%)")
 
 # COMPREHENSIVE ERROR SUMMARY
 print("\n" + "="*60)
@@ -138,6 +155,34 @@ else:
     print(f"\n✅ NO ERRORS: All {len(files)} files processed successfully!")
 
 print("\nAll files processed. PNGs and CSVs saved in their respective subfolders.")
+
+# Note: Sinusoidal detection data is now included in individual detection CSV files
+# saved in each subdirectory by the detect_sinusoidal_noise_weights function
+print("\n" + "="*60)
+print("SINUSOIDAL DETECTION DATA")
+print("="*60)
+print("✅ Sinusoidal detection data is now included in the individual detection CSV files")
+print("   saved in each subdirectory alongside the PNG graphs.")
+print("   Each CSV contains both vacuum events and sinusoidal detections per weight channel.")
+
+# Show summary of what was processed
+print(f"\n📊 PROCESSING SUMMARY:")
+print(f"  • Total files processed: {len(files)}")
+print(f"  • Files with vacuum effects: {len(files_with_vacuum)}")
+print(f"  • Files without vacuum effects: {len(files_without_vacuum)}")
+
+# Show sinusoidal detection summary
+total_sinusoidal_detections = 0
+for result in all_results:
+    if result['status'] == 'success' and result['sinusoid_times']:
+        total_sinusoidal_detections += sum(len(st) if st else 0 for st in result['sinusoid_times'])
+
+print(f"  • Total sinusoidal detections across all files: {total_sinusoidal_detections}")
+print(f"  • Detection CSV files saved in individual subdirectories")
+print(f"  • Each CSV contains vacuum events and sinusoidal detections per weight channel")
+
+# CSV files are now created individually in each subdirectory
+# with enhanced detection data including sinusoidal detections per weight channel
 
 # Function to open random graphs for visual inspection
 def open_random_graphs_for_inspection():

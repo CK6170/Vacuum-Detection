@@ -331,13 +331,62 @@ def detect_sinusoidal_noise_weights(
     plt.close(fig)  # Close the figure to free memory and prevent display
     print(f'Saved figure as PNG to: {pngpathname}')
 
-    # Save vacuum detection summary as CSV file
-    vac_times_str = [str(vt) for vt in vacuum_times]  # Convert timestamps to strings
-    summary_df = pd.DataFrame({'vacuum_times': vac_times_str})
-    csvname = f'{param_str_filename}_detections.csv'
-    csvpathname = os.path.join(outdir, csvname)
-    summary_df.to_csv(csvpathname, index=False)
-    print(f'Saved detection summary to: {csvpathname}')
+    # Save enhanced detection summary as CSV file with both vacuum and sinusoidal detections
+    # Create comprehensive detection data
+    detection_data = []
+    
+    # Add vacuum events
+    for vt in vacuum_times:
+        detection_data.append({
+            'detection_type': 'vacuum_event',
+            'timestamp': str(vt),
+            'weight_1_detection': '',
+            'weight_2_detection': '',
+            'weight_3_detection': '',
+            'weight_4_detection': '',
+            'frequency_hz': '',
+            'phase_radians': '',
+            'phase_degrees': ''
+        })
+    
+    # Add sinusoidal detections for each weight channel
+    for ch in range(n_chan):
+        channel_name = f'weight_{ch+1}'
+        if sinusoid_times[ch] and len(sinusoid_times[ch]) > 0:
+            for i, (time_det, freq_det, phase_det) in enumerate(zip(sinusoid_times[ch], dom_freqs[ch], dom_phases[ch])):
+                # Create detection entry for this channel
+                detection_entry = {
+                    'detection_type': f'sinusoidal_{channel_name}',
+                    'timestamp': str(time_det),
+                    'weight_1_detection': str(time_det) if ch == 0 else '',
+                    'weight_2_detection': str(time_det) if ch == 1 else '',
+                    'weight_3_detection': str(time_det) if ch == 2 else '',
+                    'weight_4_detection': str(time_det) if ch == 3 else '',
+                    'frequency_hz': f'{freq_det:.3f}',
+                    'phase_radians': f'{phase_det:.3f}',
+                    'phase_degrees': f'{np.degrees(phase_det):.1f}'
+                }
+                detection_data.append(detection_entry)
+    
+    # Create DataFrame and save
+    if detection_data:
+        summary_df = pd.DataFrame(detection_data)
+        csvname = f'{param_str_filename}_detections.csv'
+        csvpathname = os.path.join(outdir, csvname)
+        summary_df.to_csv(csvpathname, index=False)
+        print(f'Saved enhanced detection summary to: {csvpathname}')
+        print(f'  • {len(vacuum_times)} vacuum events')
+        print(f'  • {sum(len(st) if st else 0 for st in sinusoid_times)} total sinusoidal detections')
+    else:
+        # No detections - create empty CSV with headers
+        summary_df = pd.DataFrame(columns=[
+            'detection_type', 'timestamp', 'weight_1_detection', 'weight_2_detection',
+            'weight_3_detection', 'weight_4_detection', 'frequency_hz', 'phase_radians', 'phase_degrees'
+        ])
+        csvname = f'{param_str_filename}_detections.csv'
+        csvpathname = os.path.join(outdir, csvname)
+        summary_df.to_csv(csvpathname, index=False)
+        print(f'Saved empty detection summary to: {csvpathname} (no detections found)')
 
     # plt.show()  # Commented out to prevent interactive display
 
