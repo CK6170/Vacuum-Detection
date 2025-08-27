@@ -325,7 +325,7 @@ def detect_sinusoidal_noise_weights(
     param_str_filename = param_str.replace('.', '').replace('=', '_').replace(' ', '')
 
     # Save plot as PNG file (before showing to avoid display issues)
-    pngname = f'{param_str_filename}_graph.png'
+    pngname = f'{param_str_filename}_graph_py.png'
     pngpathname = os.path.join(outdir, pngname)
     fig.savefig(pngpathname)
     plt.close(fig)  # Close the figure to free memory and prevent display
@@ -340,10 +340,6 @@ def detect_sinusoidal_noise_weights(
         detection_data.append({
             'detection_type': 'vacuum_event',
             'timestamp': str(vt),
-            'weight_1_detection': '',
-            'weight_2_detection': '',
-            'weight_3_detection': '',
-            'weight_4_detection': '',
             'frequency_hz': '',
             'phase_radians': '',
             'phase_degrees': ''
@@ -358,10 +354,6 @@ def detect_sinusoidal_noise_weights(
                 detection_entry = {
                     'detection_type': f'sinusoidal_{channel_name}',
                     'timestamp': str(time_det),
-                    'weight_1_detection': str(time_det) if ch == 0 else '',
-                    'weight_2_detection': str(time_det) if ch == 1 else '',
-                    'weight_3_detection': str(time_det) if ch == 2 else '',
-                    'weight_4_detection': str(time_det) if ch == 3 else '',
                     'frequency_hz': f'{freq_det:.3f}',
                     'phase_radians': f'{phase_det:.3f}',
                     'phase_degrees': f'{np.degrees(phase_det):.1f}'
@@ -371,7 +363,7 @@ def detect_sinusoidal_noise_weights(
     # Create DataFrame and save
     if detection_data:
         summary_df = pd.DataFrame(detection_data)
-        csvname = f'{param_str_filename}_detections.csv'
+        csvname = f'{param_str_filename}_detections_py.csv'
         csvpathname = os.path.join(outdir, csvname)
         summary_df.to_csv(csvpathname, index=False)
         print(f'Saved enhanced detection summary to: {csvpathname}')
@@ -380,10 +372,9 @@ def detect_sinusoidal_noise_weights(
     else:
         # No detections - create empty CSV with headers
         summary_df = pd.DataFrame(columns=[
-            'detection_type', 'timestamp', 'weight_1_detection', 'weight_2_detection',
-            'weight_3_detection', 'weight_4_detection', 'frequency_hz', 'phase_radians', 'phase_degrees'
+            'detection_type', 'timestamp', 'frequency_hz', 'phase_radians', 'phase_degrees'
         ])
-        csvname = f'{param_str_filename}_detections.csv'
+        csvname = f'{param_str_filename}_detections_py.csv'
         csvpathname = os.path.join(outdir, csvname)
         summary_df.to_csv(csvpathname, index=False)
         print(f'Saved empty detection summary to: {csvpathname} (no detections found)')

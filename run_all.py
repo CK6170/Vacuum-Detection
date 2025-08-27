@@ -5,7 +5,7 @@ import random
 import time
 from detect_sinusoidal_noise_weights import detect_sinusoidal_noise_weights
 
-folder = r'D:\Coolers\Data\Test'
+folder = r'D:\Coolers\Phyton\excel_files'
 win_size_sec = 0.5
 power_ratio_thresh = 0.5
 co_detection_window_sec = 0.15
