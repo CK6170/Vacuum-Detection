@@ -77,7 +77,7 @@ def compare_results(py_results, go_results, filename):
     return comparison
 
 def main():
-    base_dir = r'D:\Coolers\Phyton\excel_files'
+    base_dir = r'D:\Coolers\Python1\excel_files'
     
     print("SCANNING for directories with both Python and Go CSV files...")
     
