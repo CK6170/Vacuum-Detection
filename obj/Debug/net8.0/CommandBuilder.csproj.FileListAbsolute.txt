@@ -1,0 +1,15 @@
+/workspace/obj/Debug/net8.0/CommandBuilder.GeneratedMSBuildEditorConfig.editorconfig
+/workspace/obj/Debug/net8.0/CommandBuilder.AssemblyInfoInputs.cache
+/workspace/obj/Debug/net8.0/CommandBuilder.AssemblyInfo.cs
+/workspace/obj/Debug/net8.0/CommandBuilder.csproj.CoreCompileInputs.cache
+/workspace/obj/Debug/net8.0/CommandBuilder.sourcelink.json
+/workspace/bin/Debug/net8.0/CommandBuilder
+/workspace/bin/Debug/net8.0/CommandBuilder.deps.json
+/workspace/bin/Debug/net8.0/CommandBuilder.runtimeconfig.json
+/workspace/bin/Debug/net8.0/CommandBuilder.dll
+/workspace/bin/Debug/net8.0/CommandBuilder.pdb
+/workspace/obj/Debug/net8.0/CommandBuilder.dll
+/workspace/obj/Debug/net8.0/refint/CommandBuilder.dll
+/workspace/obj/Debug/net8.0/CommandBuilder.pdb
+/workspace/obj/Debug/net8.0/CommandBuilder.genruntimeconfig.cache
+/workspace/obj/Debug/net8.0/ref/CommandBuilder.dll
