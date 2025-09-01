@@ -1,0 +1,15 @@
+/workspace/LeopardCommandTool/obj/Release/net8.0-windows/LeopardCommandTool.GeneratedMSBuildEditorConfig.editorconfig
+/workspace/LeopardCommandTool/obj/Release/net8.0-windows/LeopardCommandTool.AssemblyInfoInputs.cache
+/workspace/LeopardCommandTool/obj/Release/net8.0-windows/LeopardCommandTool.AssemblyInfo.cs
+/workspace/LeopardCommandTool/obj/Release/net8.0-windows/LeopardCommandTool.csproj.CoreCompileInputs.cache
+/workspace/LeopardCommandTool/obj/Release/net8.0-windows/LeopardCommandTool.sourcelink.json
+/workspace/LeopardCommandTool/bin/Release/net8.0-windows/LeopardCommandTool
+/workspace/LeopardCommandTool/bin/Release/net8.0-windows/LeopardCommandTool.deps.json
+/workspace/LeopardCommandTool/bin/Release/net8.0-windows/LeopardCommandTool.runtimeconfig.json
+/workspace/LeopardCommandTool/bin/Release/net8.0-windows/LeopardCommandTool.dll
+/workspace/LeopardCommandTool/bin/Release/net8.0-windows/LeopardCommandTool.pdb
+/workspace/LeopardCommandTool/obj/Release/net8.0-windows/LeopardCommandTool.dll
+/workspace/LeopardCommandTool/obj/Release/net8.0-windows/refint/LeopardCommandTool.dll
+/workspace/LeopardCommandTool/obj/Release/net8.0-windows/LeopardCommandTool.pdb
+/workspace/LeopardCommandTool/obj/Release/net8.0-windows/LeopardCommandTool.genruntimeconfig.cache
+/workspace/LeopardCommandTool/obj/Release/net8.0-windows/ref/LeopardCommandTool.dll
